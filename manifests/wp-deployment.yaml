@@ -106,7 +106,6 @@ metadata:
     app: wordpress
     tier: frontend
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
