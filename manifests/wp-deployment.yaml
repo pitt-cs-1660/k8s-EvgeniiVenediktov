@@ -40,7 +40,7 @@ spec:
   # Create app selector labels here
   ##
   selector:
-    matchLabels: 
+    matchLabels:
       app: wordpress
       tier: frontend
   template:
@@ -80,22 +80,20 @@ spec:
             secretKeyRef:
               name: database
               key: user-password
-
         ports:
         - containerPort: 80
           name: wordpress
-        volumeMounts:
-        - mountPath: "/var/www/html"
-          name: wp-pv-storage
       ##
       # define volume mounts here, be sure to reference
       # the PVC in your container spec
       ##
+        volumeMounts:
+        - name: wp-pv-storage
+          mountPath: /var/www/html
       volumes: 
       - name: wp-pv-storage
         persistentVolumeClaim:
           claimName: wp-pv-claim
-      
 ---
 ##
 # Create persistent volume claim here

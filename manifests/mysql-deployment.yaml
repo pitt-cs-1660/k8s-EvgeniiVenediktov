@@ -51,10 +51,6 @@ spec:
         app: wordpress
         tier: mysql
     spec:
-      volumes:
-      - name: mysql-pv-storage
-        persistentVolumeClaim:
-          claimName: mysql-pv-claim
       containers:
       - image: mysql:8.0
         name: mysql
@@ -83,13 +79,13 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
       ##
       # define volume mounts here, be sure to reference
       # the PVC in your container spec
       ##
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: /var/lib/mysql
       volumes: 
       - name: mysql-storage
         persistentVolumeClaim:
@@ -112,18 +108,3 @@ spec:
   resources:
     requests:
       storage: 1Gi
-
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: pv-volume
-#   labels:
-#     type: local
-# spec:
-#   storageClassName: manual
-#   capacity:
-#     storage: 2Gi
-#   accessModes:
-#     - ReadWriteOnce
-#   hostPath:
-#     path: "/mnt/data"
